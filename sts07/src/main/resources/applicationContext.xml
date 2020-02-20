@@ -25,8 +25,24 @@
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	
+	<bean id="sqlMapClient"
+	class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:/sqlMapConfig.xml"/>
+	</bean>
+	
+	<bean id="sqlMapClientTemplate"
+	class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	
+	<bean id="transactionManager"
+	class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
 	<bean id="deptDao"
-	class="com.bit.project02.dept.model.DeptDaoImpl1"/>
+	class="com.bit.project02.dept.model.DeptDaoImpl2"/>
 
 	<!-- 
 	<context:annotation-config></context:annotation-config>
