@@ -6,9 +6,13 @@ CREATE TABLE dept01 (
   dname varchar(45) NOT NULL,
   loc varchar(45) DEFAULT NULL,
   PRIMARY KEY (deptno)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½ ï¿½ï¿½
+-- alter table dept01 auto_increment=1;
+
 -- dummy
-INSERT INTO dept01 (deptno,dname,loc) VALUES (1,'¿µ¾÷ºÎ','¼­¿ï');
-INSERT INTO dept01 (deptno,dname,loc) VALUES (2,'ÃÑ¹«ºÎ','ºÎ»ê');
-INSERT INTO dept01 (deptno,dname,loc) VALUES (3,'È¸°èºÎ','´ë±¸');
+INSERT INTO dept01 (dname,loc) VALUES ('ì˜ì—…ë¶€','ì„œìš¸');
+INSERT INTO dept01 (dname,loc) VALUES ('ê´€ë¦¬ë¶€','ëŒ€ì „');
+INSERT INTO dept01 (dname,loc) VALUES ('ì´ë¬´ë¶€','ë¶€ì‚°');
 commit;

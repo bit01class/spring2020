@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.RowMapper;
 import com.bit.project02.dept.model.entity.DeptVo;
 
 public class DeptDaoImpl1 implements DeptDao {
+	@Autowired
 	JdbcTemplate jdbcTemplate;
 	private RowMapper<DeptVo> rowMapper;
 	
@@ -28,15 +29,16 @@ public class DeptDaoImpl1 implements DeptDao {
 		};
 	}
 	
-	@Autowired
-	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
-	}
-
 	@Override
 	public List<DeptVo> selectAll() {
 		String sql="select * from dept01";
 		return jdbcTemplate.query(sql, rowMapper);
+	}
+
+	@Override
+	public void insertOne(String dname, String loc) {
+		String sql="insert into dept01 (dname,loc) values (?,?)";
+		jdbcTemplate.update(sql,dname,loc);
 	}
 
 }
