@@ -17,6 +17,14 @@
 	<script type="text/javascript" src="${root }resources/js/bootstrap.js"></script>
 </head>
 <body>
+<c:if test="${bean ne null }">
+	<c:if test="${bean.deptno ==0 }">
+	<div class="alert alert-danger alert-dismissible" role="alert">
+	  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	  <strong>Error!</strong>dname를 반드시 입력하세요
+	</div>
+	</c:if>
+</c:if>
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -65,22 +73,31 @@
 	</div>
 	<div class="row">
 		<div class="col-md-12">
-			<form class="form-horizontal" action="insert" method="post">
+			<h1>${title } 페이지</h1>
+			<form class="form-horizontal" action="${action }" method="${method }">
+			<c:if test="${title ne '입력' }">
+			  <div class="form-group">
+			    <label for="deptno" class="col-sm-2 control-label">deptno</label>
+			    <div class="col-sm-10">
+			      <input type="text" class="form-control" name="deptno" id="deptno" placeholder="deptno" value="${bean.deptno }" readonly="readonly"/>
+			    </div>
+			  </div>
+			</c:if>
 			  <div class="form-group">
 			    <label for="dname" class="col-sm-2 control-label">DNAME</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" name="dname" id="dname" placeholder="DNAME"/>
+			      <input type="text" class="form-control" name="dname" id="dname" placeholder="DNAME" value="${bean.dname }" ${disabled}/>
 			    </div>
 			  </div>
 			  <div class="form-group">
 			    <label for="loc" class="col-sm-2 control-label">LOC</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" name="loc" id="loc" placeholder="LOC"/>
+			      <input type="text" class="form-control" name="loc" id="loc" placeholder="LOC" value="${bean.loc }" ${disabled}/>
 			    </div>
 			  </div>
 			  <div class="form-group">
 			    <div class="col-sm-offset-2 col-sm-10">
-			      <button type="submit" class="btn btn-default">입력</button>
+			      <button type="submit" class="btn btn-primary">${btn1 }</button>
 			    </div>
 			  </div>
 			</form>			

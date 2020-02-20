@@ -75,10 +75,13 @@
 				</thead>
 				<tbody>
 				<c:forEach items="${list }" var="bean">
+				<c:url value="detail" var="alink">
+					<c:param name="idx" value="${bean.deptno }"/>
+				</c:url>
 					<tr>
-						<td>${bean.deptno }</td>
-						<td>${bean.dname }</td>
-						<td>${bean.loc }</td>
+						<td><a href="${alink }">${bean.deptno }</a></td>
+						<td><a href="${alink }">${bean.dname }</a></td>
+						<td><a href="${alink }">${bean.loc }</a></td>
 					</tr>
 				</c:forEach>
 				</tbody>

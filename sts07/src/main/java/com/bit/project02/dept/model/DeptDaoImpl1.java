@@ -41,6 +41,18 @@ public class DeptDaoImpl1 implements DeptDao {
 		jdbcTemplate.update(sql,dname,loc);
 	}
 
+	@Override
+	public DeptVo selectOne(int key) {
+		String sql="select * from dept01 where deptno=?";
+		return jdbcTemplate.queryForObject(sql, rowMapper,key);
+	}
+
+	@Override
+	public int updateOne(String dname, String loc, int deptno) {
+		String sql="update dept01 set dname=?,loc=? where deptno=?";
+		return jdbcTemplate.update(sql,dname,loc,deptno);
+	}
+
 }
 
 
