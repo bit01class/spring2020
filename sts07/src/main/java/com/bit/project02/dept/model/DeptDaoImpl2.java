@@ -14,22 +14,22 @@ public class DeptDaoImpl2 implements DeptDao {
 
 	@Override
 	public List<DeptVo> selectAll() {
-		return sqlMapClientTemplate.queryForList("selectAll");
+		return sqlMapClientTemplate.queryForList("dept.selectAll");
 	}
 
 	@Override
 	public void insertOne(String dname, String loc) {
-		sqlMapClientTemplate.insert("insertOne",new DeptVo(0,dname,loc));
+		sqlMapClientTemplate.insert("dept.insertOne",new DeptVo(0,dname,loc));
 	}
 
 	@Override
 	public DeptVo selectOne(int key) {
-		return (DeptVo) sqlMapClientTemplate.queryForObject("selectOne",key);
+		return (DeptVo) sqlMapClientTemplate.queryForObject("dept.selectOne",key);
 	}
 
 	@Override
 	public int updateOne(String dname, String loc, int deptno) {
-		return sqlMapClientTemplate.update("updateOne", new DeptVo(deptno,dname,loc));
+		return sqlMapClientTemplate.update("dept.updateOne", new DeptVo(deptno,dname,loc));
 	}
 
 }
