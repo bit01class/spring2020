@@ -81,10 +81,10 @@
 	<tbody>
 	<c:forEach items="${list }" var="bean">
 		<tr>
-			<td><a href="#">${bean }</a></td>
-			<td><a href="#">${bean }</a></td>
-			<td><a href="#">${bean }</a></td>
-			<td><a href="#">${bean }</a></td>
+			<td><a href="#">${bean.sabun }</a></td>
+			<td><a href="#">${bean.name }</a></td>
+			<td><a href="#">${bean.nalja }</a></td>
+			<td><a href="#">${bean.pay }</a></td>
 		</tr>
 	</c:forEach>
 	</tbody>

@@ -3,13 +3,19 @@ package com.bit.prj03.model;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.bit.prj03.model.entity.EmpVo;
 
 public class EmpDaoImpl implements EmpDao {
+	
+	@Autowired
+	SqlSession sqlSession;
 
 	@Override
 	public List<EmpVo> selectAll() throws SQLException {
-		return null;
+		return sqlSession.selectList("emp.selectAll");
 	}
 
 	@Override
