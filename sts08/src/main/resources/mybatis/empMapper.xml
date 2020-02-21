@@ -23,6 +23,14 @@
 	<delete id="deleteOne" parameterType="int">
 	delete from emp01 where sabun=#{value}
 	</delete>
+	
+	<update id="updatePay" parameterType="int">
+	update emp01 set pay=pay+1 where sabun=#{value}
+	</update>
+	
+	<select id="selectTotal" resultType="Integer">
+	select count(*) from emp01;
+	</select>
 </mapper>
 
 

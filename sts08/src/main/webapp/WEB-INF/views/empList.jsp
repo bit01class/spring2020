@@ -67,7 +67,7 @@
 		<!-- content start -->
 
 <div class="page-header">
-  <h1>리스트페이지 <small>EMP TABLE LIST</small></h1>
+  <h1>리스트페이지 <small>EMP TABLE LIST(${total })</small></h1>
 </div>
 <table class="table">
 	<thead>

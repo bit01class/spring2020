@@ -6,10 +6,11 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.bit.prj03.model.entity.EmpVo;
 
-@Component(value = "empDao")
+@Repository
 public class EmpDaoImpl implements EmpDao {
 	
 	@Autowired
@@ -42,12 +43,12 @@ public class EmpDaoImpl implements EmpDao {
 
 	@Override
 	public int updatePay(int pay) throws SQLException {
-		return 0;
+		return sqlSession.update("emp.updatePay",pay);
 	}
 
 	@Override
 	public int selectTotal() throws SQLException {
-		return 0;
+		return sqlSession.selectOne("emp.selectTotal");
 	}
 
 }
