@@ -25,7 +25,7 @@ public class EmpDaoImpl implements EmpDao {
 
 	@Override
 	public void insertOne(EmpVo bean) throws SQLException {
-
+		sqlSession.insert("emp.insertOne",bean);
 	}
 
 	@Override

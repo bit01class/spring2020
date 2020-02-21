@@ -8,4 +8,7 @@
 	select * from emp01 order by sabun desc
 	</select>
 
+	<insert id="insertOne" parameterType="empBean">
+	insert into emp01 (name,nalja,pay,deptno) values (#{name},now(),#{pay},1)
+	</insert>
 </mapper>
