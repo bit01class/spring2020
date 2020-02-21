@@ -13,6 +13,35 @@
 	</style>
 	<script type="text/javascript" src="${root }js/jquery-1.12.4.js"></script>
 	<script type="text/javascript" src="${root }js/bootstrap.js"></script>
+	<script type="text/javascript">
+
+	$(function(){
+
+		$('form').one('submit',function(){
+			$('button[type="reset"]').off('click',delRecord).text('초기화');
+				$('.page-header').html('<h1>수정페이지 <small>EMP TABLE Row</small></h1>');
+				$('#name,#pay').removeAttr('disabled');
+				return false;
+			});
+
+		$('button[type="reset"]').on('click',delRecord);
+		
+		});
+	
+	function delRecord(){
+		var param={'sabun': ${bean.sabun} };
+		$.post('../delete',param,function(){
+				window.location.href='../list';
+			});
+		/*
+		 .done(function(){
+				window.location.href='../list';
+			}); 
+		window.location.replace('../list');
+			*/
+	}
+
+	</script>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -58,7 +87,7 @@
 <ol class="breadcrumb">
   <li><a href="#">HOME</a></li>
   <li><a href="#">EMP</a></li>
-  <li class="active">LIST</li>
+  <li class="active">${bean.sabun }</li>
 </ol>
 		</div>
 	</div>
@@ -67,28 +96,43 @@
 		<!-- content start -->
 
 <div class="page-header">
-  <h1>리스트페이지 <small>EMP TABLE LIST</small></h1>
+  <h1>상세페이지 <small>EMP TABLE Row</small></h1>
 </div>
-<table class="table">
-	<thead>
-		<tr>
-			<th>사번</th>
-			<th>이름</th>
-			<th>날짜</th>
-			<th>금액</th>
-		</tr>
-	</thead>
-	<tbody>
-	<c:forEach items="${list }" var="bean">
-		<tr>
-			<td><a href="detail/${bean.sabun }">${bean.sabun }</a></td>
-			<td><a href="detail/${bean.sabun }">${bean.name }</a></td>
-			<td><a href="detail/${bean.sabun }">${bean.nalja }</a></td>
-			<td><a href="detail/${bean.sabun }">${bean.pay }</a></td>
-		</tr>
-	</c:forEach>
-	</tbody>
-</table>
+<form class="form-horizontal" action="../edit" method="post">
+	<div class="form-group">
+	  <label for="sabun" class="col-sm-2 control-label">sabun</label>
+	  <div class="col-sm-10">
+	    <input type="text" class="form-control" name="sabun" id="sabun" placeholder="sabun" value="${bean.sabun }" readonly="readonly">
+	  </div>
+	</div>
+	<div class="form-group">
+	  <label for="name" class="col-sm-2 control-label">name</label>
+	  <div class="col-sm-10">
+	    <input type="text" class="form-control" name="name" id="name" placeholder="name" value="${bean.name }" disabled="disabled">
+	  </div>
+	</div>
+	<div class="form-group">
+	  <label for="nalja" class="col-sm-2 control-label">nalja</label>
+	  <div class="col-sm-10">
+	    <input type="text" class="form-control" name="nalja" id="nalja" placeholder="nalja" value="${bean.nalja }" disabled="disabled">
+	  </div>
+	</div>
+	<div class="form-group">
+	  <label for="pay" class="col-sm-2 control-label">pay</label>
+	  <div class="col-sm-10">
+	    <input type="text" class="form-control" name="pay" id="pay" placeholder="pay" value="${bean.pay }" disabled="disabled">
+	  </div>
+	</div>
+	<div class="form-group">
+	  <div class="col-sm-offset-2 col-sm-10">
+	  <div class="btn-group btn-group-justified" role="group" aria-label="...">
+	    <button type="submit" class="btn btn-primary">수정</button>
+	    <button type="reset" class="btn btn-default">삭제</button>
+	    <button type="button" class="btn btn-default" onclick="history.back();">BACK</button>
+	  </div>
+	  </div>
+	</div>	
+</form>
 		
 		<!-- content end -->
 		</div>

@@ -7,8 +7,35 @@
 	<select id="selectAll" resultType="empBean">
 	select * from emp01 order by sabun desc
 	</select>
+	
+	<select id="selectOne" resultType="empBean" parameterType="int">
+	select * from emp01 where sabun=#{value}
+	</select>
 
 	<insert id="insertOne" parameterType="empBean">
 	insert into emp01 (name,nalja,pay,deptno) values (#{name},now(),#{pay},1)
 	</insert>
+	
+	<update id="updateOne" parameterType="empBean">
+	update emp01 set name=#{name}, pay=#{pay} where sabun=#{sabun}
+	</update>
+	
+	<delete id="deleteOne" parameterType="int">
+	delete from emp01 where sabun=#{value}
+	</delete>
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

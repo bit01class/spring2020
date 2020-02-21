@@ -5,9 +5,11 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.bit.prj03.model.entity.EmpVo;
 
+@Component(value = "empDao")
 public class EmpDaoImpl implements EmpDao {
 	
 	@Autowired
@@ -20,7 +22,7 @@ public class EmpDaoImpl implements EmpDao {
 
 	@Override
 	public EmpVo selectOne(int key) throws SQLException {
-		return null;
+		return sqlSession.selectOne("emp.selectOne",key);
 	}
 
 	@Override
@@ -30,12 +32,12 @@ public class EmpDaoImpl implements EmpDao {
 
 	@Override
 	public int updateOne(EmpVo bean) throws SQLException {
-		return 0;
+		return sqlSession.update("emp.updateOne",bean);
 	}
 
 	@Override
 	public int deleteOne(int key) throws SQLException {
-		return 0;
+		return sqlSession.delete("emp.deleteOne",key);
 	}
 
 	@Override
