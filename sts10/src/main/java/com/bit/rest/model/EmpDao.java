@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.bit.rest.model.entity.EmpVo;
 
@@ -17,4 +18,7 @@ public interface EmpDao {
 
 	@Select("SELECT * FROM EMP01 WHERE SABUN=#{value}")
 	EmpVo selectOne(int key);
+
+	@Update("UPDATE EMP01 SET NAME=#{name},PAY=#{pay} WHERE SABUN=#{sabun}")
+	int updateOne(EmpVo bean);
 }

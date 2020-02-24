@@ -36,7 +36,9 @@ public class EmpServiceImpl implements EmpService {
 
 	@Override
 	public boolean update(EmpVo bean) {
-		// TODO Auto-generated method stub
+		EmpDao dao=sqlSession.getMapper(EmpDao.class);
+		int result=dao.updateOne(bean);
+		if(result>0) return true;
 		return false;
 	}
 

@@ -24,8 +24,12 @@
 			form=$('#myModal form');
 
 			form.submit(function(){
-				$('#myModal').modal('hide');
-				insertOne();
+				if($('#myModal').find('form').attr('method')=='post'){
+					$('#myModal').modal('hide');
+					insertOne();
+				}else{
+					updateOne();
+				}
 				return false;
 				});
 
@@ -54,6 +58,7 @@
 				$('#sabun').parent().parent().hide();
 				$('#nalja').parent().parent().hide();
 				$('#myModal').modal();
+				$('#myModal').find('form').attr('method','post');
 				return false;
 				});
 
@@ -75,6 +80,28 @@
 			
 			
 		});
+
+		function updateOne(){
+			var param={
+						sabun:$('#sabun').val(),
+						name:$('#name').val(),
+						pay:$('#pay').val(),
+						etc:$('#etc').val()
+					};
+			$.ajax({
+					url:'emp/'+$('#sabun').val(),
+					type:'put',
+					data:JSON.stringify(param),
+					contentType: 'application/json; charset=utf-8',
+//					data:param,
+//		            contentType:false,
+//		            processData:false,
+					success:function(data){
+						$('#myModal').modal('hide');
+						getList();
+					}
+				});
+		}
 
 		function getDetail(a){
 			$.getJSON('emp/'+a,function(data){
@@ -131,6 +158,7 @@
 			$('#sabun').parent().parent().show();
 			$('#nalja').parent().parent().show();
 			$('#myModal form input').val('');
+			$('#myModal').find('form').removeAttr('method');
 			}
 		
 	</script>
