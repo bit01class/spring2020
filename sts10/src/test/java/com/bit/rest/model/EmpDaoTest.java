@@ -16,8 +16,8 @@ import lombok.Setter;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-		"/applicationContext.xml",
+@ContextConfiguration(value = {
+		"file:src/main/webapp/WEB-INF/spring/root-context.xml",
 		"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"})
 public class EmpDaoTest {
 		
@@ -26,7 +26,7 @@ public class EmpDaoTest {
 	
 	@Test
 	public void testDataSource() {
-		assertNotNull(target);
+		System.out.println(target);
 	}
 
 	@Test

@@ -24,14 +24,12 @@ public class EmpServiceImpl implements EmpService {
 
 	@Override
 	public void detail(Model model, int key) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void insert(EmpVo bean) {
-		// TODO Auto-generated method stub
-
+		EmpDao dao= sqlSession.getMapper(EmpDao.class);
+		dao.insertOne(bean);
 	}
 
 	@Override

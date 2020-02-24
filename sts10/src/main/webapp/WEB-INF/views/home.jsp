@@ -13,7 +13,17 @@
 	var p1=$('<div class="jumbotron"/>').append('<h1>환영합니다</h1>');
 	var p2=$('<div class="jumbotron"/>').append('<h1>INTRO PAGE</h1>');
 	var p3=$('<div class="jumbotron"/>').append('<h1>LIST PAGE</h1><p><a class="btn btn-primary btn-lg empAdd" href="#" role="button">입력</a></p>');
+	var form;
 		$(function(){
+			form=$('#myModal form');
+
+			form.submit(function(){
+				$('#myModal').modal('hide');
+				insertOne();
+				return false;
+				});
+
+			
 			body=$(".result");
 			//getList();
 			menu=$('.navbar-nav>li>a');
@@ -50,26 +60,28 @@
 					$('<td/>').appendTo(tr).text(arr[i].pay);
 				}				
 				table.before(p3);
-				/* 
-				for(var i=0; i<arr.length; i++){
-					//console.log(arr[0]);
-					tr+='<tr>';
-					//body.text(data);
-					tr+='<td>'+arr[i].sabun+'</td>';
-					tr+='<td>'+arr[i].name+'</td>';
-					var date=new Date(arr[i].nalja);
-					console.log(date);
-					tr+='<td>'+(date.getYear()+1900)+"/"
-						+(date.getMonth()+1)+"/"
-						+date.getDate()
-						+'</td>';
-					tr+='<td>'+arr[i].pay+'</td>';
-					tr+='</tr>';
-				}
-				$('<table class="table"/>').appendTo(body).append(tr);
-				 */
 			});
 		}
+
+		function insertOne(){
+			/* 
+			var param=$('#myModal form').serialize();
+			 */
+
+			var param={
+						name:$('#name').val(),
+						pay:$('#pay').val(),
+						etc:$('#etc').val()
+						};
+			$.post('emp/',param,function(){
+				getList();
+			});
+			modalClear();
+		}
+		function modalClear(){
+			$('#myModal form input').val('');
+			}
+		
 	</script>
 </head>
 <body>
@@ -98,9 +110,8 @@
 <!-- content start -->
 <div class="container">
 	<div class="row">
-		<div class="col-md-12 result"></div>
+		<div class="col-xs-12 result"></div>
 	</div>
-</div>
 
 <!-- content end -->
 
@@ -110,18 +121,47 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        <h4 class="modal-title" id="myModalLabel">입력 페이지</h4>
       </div>
+      <form class="form-horizontal">
       <div class="modal-body">
-        ...
+      <!-- 
+		<div class="form-group">
+		    <label for="sabun" class="col-sm-2 control-label">sabun</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" name="sabun" id="sabun" placeholder="sabun"/>
+		    </div>
+		</div>
+		 -->
+		<div class="form-group">
+		    <label for="name" class="col-sm-2 control-label">name</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" name="name" id="name" placeholder="name"/>
+		    </div>
+		</div>
+		<div class="form-group">
+		    <label for="pay" class="col-sm-2 control-label">pay</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" name="pay" id="pay" placeholder="pay"/>
+		    </div>
+		</div>
+		<div class="form-group">
+		    <label for="etc" class="col-sm-2 control-label">etc</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" name="etc" id="etc" placeholder="etc"/>
+		    </div>
+		</div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
       </div>
+      </form>
     </div>
   </div>
-</div>
+</div><!-- Modal end -->
+
+</div><!-- container end -->
 </body>
 </html>
 
