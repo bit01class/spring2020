@@ -44,7 +44,9 @@ public class EmpServiceImpl implements EmpService {
 
 	@Override
 	public boolean delete(int key) {
-		// TODO Auto-generated method stub
+		EmpDao dao=sqlSession.getMapper(EmpDao.class);
+		int result=dao.deleteOne(key);
+		if(result>0)return true;
 		return false;
 	}
 

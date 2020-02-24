@@ -78,8 +78,23 @@
 				$('#name,#pay,#etc').removeProp('readonly');
 			});
 			
-			
+			$('.modal-footer button[type=button]').eq(1).click(function(){
+				
+				deleteOne($('#sabun').val());
+				});
 		});
+
+		function deleteOne(a){
+			$.ajax({
+					type:'delete',
+					url:'emp/'+a,
+					success:function(data){
+						$('#myModal').modal('hide');
+						modalClear();
+						getList();
+					}
+				});
+		}
 
 		function updateOne(){
 			var param={

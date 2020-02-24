@@ -41,8 +41,11 @@ public class EmpRestController {
 		service.update(bean);
 		return "success";
 	}
-//	@RequestMapping(value = "/{sabun}",method=RequestMethod.GET)
-//	@RequestMapping(value = "/{sabun}",method=RequestMethod.GET)
+	@RequestMapping(value = "/{sabun}",method=RequestMethod.DELETE)
+	public String delete(@PathVariable int sabun) {
+		service.delete(sabun);
+		return "success";
+	}
 }
 
 

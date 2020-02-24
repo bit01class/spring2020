@@ -2,6 +2,7 @@ package com.bit.rest.model;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -21,4 +22,7 @@ public interface EmpDao {
 
 	@Update("UPDATE EMP01 SET NAME=#{name},PAY=#{pay} WHERE SABUN=#{sabun}")
 	int updateOne(EmpVo bean);
+
+	@Delete("DELETE FROM EMP01 WHERE SABUN=#{value}")
+	int deleteOne(int key);
 }
