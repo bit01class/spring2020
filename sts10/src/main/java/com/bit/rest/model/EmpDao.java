@@ -14,4 +14,7 @@ public interface EmpDao {
 	
 	@Insert("INSERT INTO EMP01 VALUES (EMP01_SEQ.NEXTVAL,#{name},sysdate,#{pay},#{etc})")
 	void insertOne(EmpVo bean);
+
+	@Select("SELECT * FROM EMP01 WHERE SABUN=#{value}")
+	EmpVo selectOne(int key);
 }

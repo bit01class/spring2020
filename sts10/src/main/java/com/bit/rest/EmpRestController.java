@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,14 @@ public class EmpRestController {
 		return "success";
 	}
 	
+	@RequestMapping(value = "/{sabun}",method=RequestMethod.GET)
+	public EmpVo detail(@PathVariable int sabun) {
+		EmpVo bean=service.detail(sabun);
+		return bean;
+	}
+//	@RequestMapping(value = "/{sabun}",method=RequestMethod.GET)
+//	@RequestMapping(value = "/{sabun}",method=RequestMethod.GET)
+//	@RequestMapping(value = "/{sabun}",method=RequestMethod.GET)
 }
 
 

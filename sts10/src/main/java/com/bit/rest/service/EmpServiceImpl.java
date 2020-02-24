@@ -23,7 +23,9 @@ public class EmpServiceImpl implements EmpService {
 	}
 
 	@Override
-	public void detail(Model model, int key) {
+	public EmpVo detail(int key) {
+		EmpDao dao= sqlSession.getMapper(EmpDao.class);
+		return dao.selectOne(key);
 	}
 
 	@Override

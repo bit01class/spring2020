@@ -5,6 +5,12 @@
 	<meta charset="utf-8">
 	<title>Home</title>
 	<link rel="stylesheet" href="resources/css/bootstrap.css"/>
+	<style type="text/css">
+	.result table>tbody>tr{
+		cursor: pointer;
+	}
+	
+	</style>
 	<script type="text/javascript" src="resources/js/jquery-1.12.4.js"></script>
 	<script type="text/javascript" src="resources/js/bootstrap.js"></script>
 	<script type="text/javascript">
@@ -42,18 +48,59 @@
 			menu.eq(0).click();
 			$(document).on('click','.empAdd',function(){
 				//입력
+				modalClear();
+				$('.modal-footer button[type=button]').eq(0).hide();
+				$('.modal-footer button[type=button]').eq(1).hide();
+				$('#sabun').parent().parent().hide();
+				$('#nalja').parent().parent().hide();
 				$('#myModal').modal();
 				return false;
 				});
+
+			$(document).on('click','.result table>tbody>tr',function(){
+				//상세
+				$('.modal-footer button[type=submit]').hide();
+				console.log($(this).find('td').eq(0).text());
+				var sabun=$(this).find('td').eq(0).text();
+				getDetail(sabun);
+			});
+
+			$('.modal-footer button[type=button]').eq(0).click(function(){
+				//수정
+				$('.modal-footer button[type=submit]').show();
+				$('.modal-footer button[type=button]').eq(0).hide();
+				$('.modal-footer button[type=button]').eq(1).hide();
+				$('#name,#pay,#etc').removeProp('readonly');
+			});
+			
+			
 		});
+
+		function getDetail(a){
+			$.getJSON('emp/'+a,function(data){
+				console.log(data);
+				$('#myModalLabel').text('상세페이지');
+				$('#myModal').modal('show');
+				$('#myModal').find('input').eq(0).val(data.sabun);
+				$('#myModal').find('input').eq(1).val(data.name);
+				$('#myModal').find('input').eq(2).val(data.nalja);
+				$('#myModal').find('input').eq(3).val(data.pay);
+				$('#myModal').find('input').eq(4).val(data.etc);
+				$('#myModal').find('input').each(function(){
+					$(this).prop('readonly','readonly');
+				});
+			});
+		}
 
 		function getList(){
 			$.getJSON('emp/',function(data){
 				var arr=data;
 				var table=$('<table/>').addClass('table');
 				body.html(table);
+				table.append('<thead><tr><th>사번</th><th>이름</th><th>날짜</th><th>금액</th></tr></thead>');
+				var tbody=$('<tbody/>').appendTo(table);
 				for(var i=0; i<arr.length; i++){
-					var tr=$('<tr/>').appendTo(table);
+					var tr=$('<tr/>').appendTo(tbody);
 					$('<td/>').appendTo(tr).text(arr[i].sabun);
 					$('<td/>').appendTo(tr).text(arr[i].name);
 					$('<td/>').appendTo(tr).text(arr[i].nalja);
@@ -79,6 +126,10 @@
 			modalClear();
 		}
 		function modalClear(){
+			$('.modal-footer button[type=button]').eq(0).show();
+			$('.modal-footer button[type=button]').eq(1).show();
+			$('#sabun').parent().parent().show();
+			$('#nalja').parent().parent().show();
 			$('#myModal form input').val('');
 			}
 		
@@ -125,18 +176,22 @@
       </div>
       <form class="form-horizontal">
       <div class="modal-body">
-      <!-- 
 		<div class="form-group">
 		    <label for="sabun" class="col-sm-2 control-label">sabun</label>
 		    <div class="col-sm-10">
-		      <input type="text" class="form-control" name="sabun" id="sabun" placeholder="sabun"/>
+		      <input type="text" class="form-control" name="sabun" id="sabun" placeholder="sabun" value="0"/>
 		    </div>
 		</div>
-		 -->
 		<div class="form-group">
 		    <label for="name" class="col-sm-2 control-label">name</label>
 		    <div class="col-sm-10">
 		      <input type="text" class="form-control" name="name" id="name" placeholder="name"/>
+		    </div>
+		</div>
+		<div class="form-group">
+		    <label for="nalja" class="col-sm-2 control-label">nalja</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" name="nalja" id="nalja" placeholder="nalja"/>
 		    </div>
 		</div>
 		<div class="form-group">
@@ -153,6 +208,8 @@
 		</div>
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-primary">수정</button>
+        <button type="button" class="btn btn-danger">삭제</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary">Save changes</button>
       </div>
