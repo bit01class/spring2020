@@ -1,5 +1,6 @@
 package com.bit.sts12.service;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import com.bit.sts12.model.entity.EmpVo;
