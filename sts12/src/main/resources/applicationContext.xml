@@ -3,57 +3,41 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:aop="http://www.springframework.org/schema/aop"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
-<!-- 
-<bean id="empService"
-class="com.bit.sts12.service.EmpServiceImpl"></bean>
- -->
- 
- <context:component-scan base-package="com.bit.sts12.service"></context:component-scan>
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
- 
- <bean
- id="beforeAop"
- class="com.bit.sts12.util.BeforeAop"
- ></bean>
- <bean id="afterAop"
- class="com.bit.sts12.util.AfterAop"></bean>
- 
- <bean id="aroundAop"
- class="com.bit.sts12.util.AroundAop"></bean>
- 
- <bean id="afterReturnAop"
- class="com.bit.sts12.util.AfterReturnAop"/>
- 
- <aop:config>
- 	
- 	<aop:aspect ref="beforeAop">
-	 	<aop:pointcut  id="before" 
-	 	expression="execution(* com.bit.sts12.service.EmpService.select*(..))"/>
- 		<aop:before method="before" pointcut-ref="before"/>
- 	</aop:aspect>
- 	
- 	<aop:aspect ref="afterAop">
- 		<aop:pointcut id="OneAfter" 
- 		expression="execution(* com.bit.sts12.service.EmpService.*One(..))" />
- 		<aop:after method="after" pointcut-ref="OneAfter"/>
- 	</aop:aspect>
- 	
- 	<aop:aspect ref="aroundAop">
-		<aop:pointcut id="del" expression="execution(* com.bit.sts12.service.EmpService.deleteOne(..))"/>
-		<aop:around method="around" pointcut-ref="del"/> 	
- 	</aop:aspect>
- 	
- 	<aop:aspect ref="afterReturnAop">
- 		<aop:pointcut id="update" 
- 		expression="execution(* com.bit.sts12.service.EmpService.update*(..))"/>
- 		<aop:after-returning method="after" returning="result" pointcut-ref="update"/>
- 	</aop:aspect>
- </aop:config>
- 
- <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+	<bean id="dataSource"
+	class="org.apache.commons.dbcp.BasicDataSource"
+	destroy-method="close">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+		<property name="username" value="scott"/>
+		<property name="password" value="tiger"/>
+	</bean>
+	
+	<bean id="sqlSessionFactory"
+	class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<bean id="sqlSession"
+	class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"/>
+	</bean>
+	
+	<bean id="transactionManager"
+	class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<context:component-scan base-package="com.bit.sts12"></context:component-scan>
+	<mybatis-spring:scan base-package="com.bit.sts12.model"/>
+	<tx:annotation-driven/>
 </beans>
 
 
