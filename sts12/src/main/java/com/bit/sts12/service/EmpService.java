@@ -8,7 +8,7 @@ public interface EmpService {
 
 	void selectAll(Model model);
 	void selectOne(int key,Model model);
-	void insertOne(EmpVo bean);
+	void insertOne(EmpVo bean) throws Exception;
 	int updateOne(EmpVo bean);
 	int deleteOne(int key);
 }

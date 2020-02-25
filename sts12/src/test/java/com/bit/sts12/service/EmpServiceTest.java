@@ -19,7 +19,11 @@ public class EmpServiceTest {
 	public void test() {
 		service.selectOne(0, null);
 		service.selectAll(null);
-		service.insertOne(null);
+		try {
+			service.insertOne(null);
+		} catch (Exception e) {
+		}
+		service.updateOne(null);
 		service.deleteOne(0);
 		assertNotNull(service);
 		//fail("Not yet implemented");

@@ -24,15 +24,15 @@ public class EmpServiceImpl implements EmpService {
 	}
 
 	@Override
-	public void insertOne(EmpVo bean) {
+	public void insertOne(EmpVo bean) throws Exception {
 		System.out.println("데이터베이스에 입력하겠습니다...");
-
+		int su=0/0;
 	}
 
 	@Override
 	public int updateOne(EmpVo bean) {
 		System.out.println("레코드를 수정하겠습니다...");
-		return 0;
+		return 1;
 	}
 
 	@Override
