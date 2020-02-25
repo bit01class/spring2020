@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -31,26 +33,29 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/upload", method=RequestMethod.POST)
-	public String upload(int sabun,MultipartFile file1,Model model) {
-		logger.debug(sabun+"");
-		logger.debug(file1.getOriginalFilename());
+	public String upload(int sabun,MultipartFile[] files,Model model) {
 		
+		List<String> renames=new ArrayList<String>();
 		
-		String filename=file1.getOriginalFilename();
-		String rename=System.currentTimeMillis()+"_"+filename;
-		File file = new File(path+rename);
-		
-		try {
-			file1.transferTo(file);
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		for(MultipartFile multi : files) {
+			if(multi.getOriginalFilename().isEmpty())continue;
+			logger.debug(multi.getOriginalFilename());
+			
+			String filenames =multi.getOriginalFilename();
+			String rename=System.currentTimeMillis()+"_"+filenames;
+			renames.add(rename);
+			File file = new File(path+rename);
+			
+			try {
+				multi.transferTo(file);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-		
 		model.addAttribute("sabun", sabun);
-		model.addAttribute("orgfile", filename);
-		model.addAttribute("file", rename);
+		model.addAttribute("files", renames);
 		return "download";
 	}
 	
