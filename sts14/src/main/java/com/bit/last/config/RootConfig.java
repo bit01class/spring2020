@@ -10,9 +10,14 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @MapperScan(basePackages = {"com.bit.last.model"})
+@EnableAspectJAutoProxy
+@EnableTransactionManagement
 public class RootConfig {
 
 	@Bean
@@ -37,6 +42,11 @@ public class RootConfig {
 	@Bean
 	public SqlSession sqlSession() throws Exception {
 		return new SqlSessionTemplate(sqlSessionFactory());
+	}
+	
+	@Bean
+	public DataSourceTransactionManager txManger() {
+		return new DataSourceTransactionManager(dataSource());
 	}
 	
 }
