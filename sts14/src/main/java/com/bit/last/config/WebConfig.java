@@ -21,7 +21,7 @@ extends AbstractAnnotationConfigDispatcherServletInitializer{
 			<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 		</listener>
 		*/
-		return null;
+		return new Class[] {RootConfig.class};
 	}
 
 	@Override
@@ -37,7 +37,6 @@ extends AbstractAnnotationConfigDispatcherServletInitializer{
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 		*/
-		System.out.println("getServletConfigClasses run...");
 		return new Class[]{ServletConfig.class};
 	}
 

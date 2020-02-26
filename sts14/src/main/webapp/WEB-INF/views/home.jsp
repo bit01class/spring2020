@@ -4,6 +4,9 @@
 <head>
 	<meta charset="utf-8">
 	<title>Home</title>
+	<link rel="stylesheet" type="text/css" href="resources/css/bootstrap.css" />
+	<script type="text/javascript" src="resources/js/jquery-1.12.4.js"></script>
+	<script type="text/javascript" src="resources/js/bootstrap.js"></script>
 </head>
 <body>
 <h1>
